@@ -1,0 +1,10 @@
+[gd_scene load_steps=2 format=3 uid="uid://bv7fgmiwyr51b"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_ldutm"]
+font_size = 48
+font_color = Color(0, 0, 0, 1)
+
+[node name="Label" type="Label"]
+offset_right = 40.0
+offset_bottom = 23.0
+label_settings = SubResource("LabelSettings_ldutm")

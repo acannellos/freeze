@@ -1,0 +1,173 @@
+[gd_scene load_steps=26 format=3 uid="uid://cdcxq6f8ve3as"]
+
+[ext_resource type="Script" path="res://scripts/player/player.gd" id="1_7u2fc"]
+[ext_resource type="Script" path="res://scripts/player/components/player_movement_data.gd" id="2_w60pe"]
+[ext_resource type="Script" path="res://scripts/player/test_gun.gd" id="4_aduug"]
+[ext_resource type="Script" path="res://scripts/player/states/player_move_state.gd" id="5_6ge2a"]
+[ext_resource type="Script" path="res://scripts/player/components/player_stat_component.gd" id="5_q3k2l"]
+[ext_resource type="PackedScene" uid="uid://cls6jvodtjqc1" path="res://scenes/enemy/projectile.tscn" id="5_vposa"]
+[ext_resource type="Script" path="res://scripts/player/player_head.gd" id="6_0ccc4"]
+[ext_resource type="SphereMesh" uid="uid://d17aarxmbx475" path="res://assets/mesh/snowman_mesh.tres" id="6_ogbiw"]
+[ext_resource type="Texture2D" uid="uid://c3dpyaqnfd3i4" path="res://assets/textures/dotted_outline.png" id="7_g2fgb"]
+[ext_resource type="Script" path="res://scripts/player/components/player_move_component.gd" id="7_u0m56"]
+[ext_resource type="AudioStream" uid="uid://dnv4vvjleyx6u" path="res://assets/sounds/walking.ogg" id="8_xpv4m"]
+[ext_resource type="Script" path="res://scripts/snowman/decal_rotate.gd" id="10_f3rbj"]
+[ext_resource type="Shader" path="res://shaders/outline.gdshader" id="11_37rgj"]
+[ext_resource type="Script" path="res://scripts/player/states/player_ground_state.gd" id="11_clh3t"]
+[ext_resource type="Texture2D" uid="uid://b4bg4pys0pyxv" path="res://assets/textures/blob_shadow.png" id="12_8lbuc"]
+[ext_resource type="Script" path="res://scripts/player/components/player_snowman_component.gd" id="13_lw0ba"]
+[ext_resource type="PackedScene" uid="uid://tquajgfegas0" path="res://scenes/snowman/snowman.tscn" id="15_whnte"]
+
+[sub_resource type="Resource" id="Resource_hmy44"]
+script = ExtResource("2_w60pe")
+base_speed = 10.0
+base_acceleration = 0.25
+air_multiplier = 0.5
+sprint_multiplier = 2.0
+jump_velocity = 8.0
+max_air_jumps = 999
+sprint_cost = 1
+jump_cost = 1
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_d4r1y"]
+
+[sub_resource type="SphereMesh" id="SphereMesh_soqcj"]
+radius = 15.0
+height = 30.0
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_nnl0s"]
+transparency = 1
+cull_mode = 2
+shading_mode = 0
+albedo_color = Color(1, 0.5, 0.5, 0.227451)
+
+[sub_resource type="QuadMesh" id="QuadMesh_rjgyh"]
+flip_faces = true
+size = Vector2(2, 2)
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_lwuk3"]
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_4ajd8"]
+noise = SubResource("FastNoiseLite_lwuk3")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_piuok"]
+render_priority = 0
+shader = ExtResource("11_37rgj")
+shader_parameter/outlineColor = Color(0, 0, 0, 1)
+shader_parameter/depth_threshold = 0.2
+shader_parameter/normal_threshold = 0.5
+shader_parameter/normal_smoothing = 0.25
+shader_parameter/max_thickness = 1.3
+shader_parameter/min_thickness = 0.5
+shader_parameter/max_distance = 75.0
+shader_parameter/min_distance = 2.0
+shader_parameter/grazing_fresnel_power = 5.0
+shader_parameter/grazing_angle_mask_power = 1.0
+shader_parameter/grazing_angle_modulation_factor = 50.0
+shader_parameter/noise_amount = 0.0
+shader_parameter/NOISE_TEXTURE = SubResource("NoiseTexture2D_4ajd8")
+
+[node name="player" type="CharacterBody3D"]
+collision_layer = 3
+script = ExtResource("1_7u2fc")
+movement = SubResource("Resource_hmy44")
+
+[node name="col" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+shape = SubResource("CapsuleShape3D_d4r1y")
+
+[node name="head" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5, 0)
+script = ExtResource("6_0ccc4")
+
+[node name="camera" type="Camera3D" parent="head"]
+cull_mask = 1048573
+
+[node name="svc" type="SubViewportContainer" parent="head/camera"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="sv" type="SubViewport" parent="head/camera/svc"]
+transparent_bg = true
+handle_input_locally = false
+size = Vector2i(1920, 1080)
+render_target_update_mode = 4
+
+[node name="sub_camera" type="Camera3D" parent="head/camera/svc/sv"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5, 0)
+cull_mask = 2
+
+[node name="marker" type="Marker3D" parent="head/camera/svc/sv/sub_camera"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -1.5)
+script = ExtResource("4_aduug")
+Projectile = ExtResource("5_vposa")
+
+[node name="Timer" type="Timer" parent="head/camera/svc/sv/sub_camera/marker"]
+wait_time = 0.1
+one_shot = true
+
+[node name="marker_snowman" type="Marker3D" parent="head/camera/svc/sv/sub_camera"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.5, -1.5)
+
+[node name="held_snowman" type="MeshInstance3D" parent="head/camera/svc/sv/sub_camera/marker_snowman"]
+visible = false
+layers = 2
+mesh = ExtResource("6_ogbiw")
+skeleton = NodePath("../../marker")
+
+[node name="snowman_range" type="MeshInstance3D" parent="head/camera/svc/sv/sub_camera/marker_snowman"]
+visible = false
+mesh = SubResource("SphereMesh_soqcj")
+skeleton = NodePath("../../marker")
+surface_material_override/0 = SubResource("StandardMaterial3D_nnl0s")
+
+[node name="post" type="MeshInstance3D" parent="head/camera"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.2)
+layers = 3
+mesh = SubResource("QuadMesh_rjgyh")
+surface_material_override/0 = SubResource("ShaderMaterial_piuok")
+
+[node name="shadow" type="Decal" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -4.5, 0)
+size = Vector3(1, 10, 1)
+texture_albedo = ExtResource("12_8lbuc")
+
+[node name="snowman_decal" type="Decal" parent="."]
+transform = Transform3D(0.255403, 0, -0.966539, 0, 1, 0, 0.966539, 0, 0.255403, 0, 0, 0)
+visible = false
+size = Vector3(34, 1, 34)
+texture_albedo = ExtResource("7_g2fgb")
+script = ExtResource("10_f3rbj")
+
+[node name="components" type="Node" parent="."]
+
+[node name="movement" type="Node" parent="components" node_paths=PackedStringArray("head")]
+unique_name_in_owner = true
+script = ExtResource("7_u0m56")
+head = NodePath("../../head")
+
+[node name="move_state" type="Node" parent="components/movement"]
+script = ExtResource("5_6ge2a")
+
+[node name="ground_state" type="Node" parent="components/movement"]
+script = ExtResource("11_clh3t")
+
+[node name="footsteps" type="AudioStreamPlayer" parent="components/movement"]
+stream = ExtResource("8_xpv4m")
+autoplay = true
+
+[node name="stats" type="Node" parent="components"]
+unique_name_in_owner = true
+script = ExtResource("5_q3k2l")
+
+[node name="snowman" type="Node" parent="components" node_paths=PackedStringArray("marker_snowman", "held_snowman", "snowman_range", "snowman_decal")]
+unique_name_in_owner = true
+script = ExtResource("13_lw0ba")
+snowman_scene = ExtResource("15_whnte")
+marker_snowman = NodePath("../../head/camera/svc/sv/sub_camera/marker_snowman")
+held_snowman = NodePath("../../head/camera/svc/sv/sub_camera/marker_snowman/held_snowman")
+snowman_range = NodePath("../../head/camera/svc/sv/sub_camera/marker_snowman/snowman_range")
+snowman_decal = NodePath("../../snowman_decal")

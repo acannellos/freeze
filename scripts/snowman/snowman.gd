@@ -1,0 +1,2 @@
+class_name Snowman
+extends StaticBody3D
