@@ -6,6 +6,7 @@ extends VBoxContainer
 var labels = {
 	"fps": null,
 	"snowflakes": null,
+	"presents": null,
 }
 
 func _ready() -> void:
@@ -14,6 +15,7 @@ func _ready() -> void:
 func _physics_process(delta: float) -> void:
 	update_label("fps", Engine.get_frames_per_second())
 	update_label("snowflakes", Global.snowflakes)
+	update_label("presents", Global.presents)
 
 func create_labels() -> void:
 	for label_name in labels:

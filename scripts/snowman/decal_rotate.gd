@@ -1,4 +1,4 @@
-@tool
+#@tool
 extends Decal
 
 func _process(delta: float) -> void:

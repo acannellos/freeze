@@ -1,8 +1,11 @@
 extends RayCast3D
 
-@export var speed := 50.0
+@export var speed: float = 50.0
 
 @onready var remote_transform = RemoteTransform3D.new()
+
+func set_speed(custom_speed: float) -> void:
+	speed = custom_speed
 
 func _physics_process(delta: float) -> void:
 	position += global_basis * Vector3.FORWARD * delta * speed

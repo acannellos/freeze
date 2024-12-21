@@ -8,6 +8,8 @@ extends PlayerComponent
 @export var snowman_decal: Decal
 @export var snowman_cost: int = 20
 
+var is_range_visible = true
+
 func _ready() -> void:
 	held_snowman.hide()
 
@@ -24,6 +26,7 @@ func handle_snowman_input():
 	if Input.is_action_just_pressed("range") and !held_snowman.visible:
 		for range in get_tree().get_nodes_in_group("ranges"):
 			range.visible = !range.visible
+			is_range_visible = range.visible
 
 func _create_snowman() -> void:
 	Global.snowflakes -= snowman_cost
@@ -33,6 +36,10 @@ func _create_snowman() -> void:
 	var new_pos = marker_snowman.global_position
 	new_pos.y = 0
 	snowman.position = new_pos
+	if is_range_visible:
+		snowman.show_range()
+	else:
+		snowman.hide_range()
 
 func _toggle_show() -> void:
 	held_snowman.show()

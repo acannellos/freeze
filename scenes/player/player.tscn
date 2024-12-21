@@ -1,4 +1,4 @@
-[gd_scene load_steps=26 format=3 uid="uid://cdcxq6f8ve3as"]
+[gd_scene load_steps=28 format=3 uid="uid://cdcxq6f8ve3as"]
 
 [ext_resource type="Script" path="res://scripts/player/player.gd" id="1_7u2fc"]
 [ext_resource type="Script" path="res://scripts/player/components/player_movement_data.gd" id="2_w60pe"]
@@ -17,6 +17,7 @@
 [ext_resource type="Texture2D" uid="uid://b4bg4pys0pyxv" path="res://assets/textures/blob_shadow.png" id="12_8lbuc"]
 [ext_resource type="Script" path="res://scripts/player/components/player_snowman_component.gd" id="13_lw0ba"]
 [ext_resource type="PackedScene" uid="uid://tquajgfegas0" path="res://scenes/snowman/snowman.tscn" id="15_whnte"]
+[ext_resource type="Texture2D" uid="uid://d0galojgm544k" path="res://assets/textures/panel_fill.png" id="18_5fe2f"]
 
 [sub_resource type="Resource" id="Resource_hmy44"]
 script = ExtResource("2_w60pe")
@@ -66,6 +67,10 @@ shader_parameter/grazing_angle_mask_power = 1.0
 shader_parameter/grazing_angle_modulation_factor = 50.0
 shader_parameter/noise_amount = 0.0
 shader_parameter/NOISE_TEXTURE = SubResource("NoiseTexture2D_4ajd8")
+
+[sub_resource type="LabelSettings" id="LabelSettings_lw1fa"]
+font_size = 42
+font_color = Color(0, 0, 0, 1)
 
 [node name="player" type="CharacterBody3D"]
 collision_layer = 3
@@ -124,6 +129,10 @@ mesh = SubResource("SphereMesh_soqcj")
 skeleton = NodePath("../../marker")
 surface_material_override/0 = SubResource("StandardMaterial3D_nnl0s")
 
+[node name="ray" type="RayCast3D" parent="head/camera/svc/sv/sub_camera"]
+target_position = Vector3(0, 0, -2)
+collision_mask = 4
+
 [node name="post" type="MeshInstance3D" parent="head/camera"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.2)
 layers = 3
@@ -136,7 +145,7 @@ size = Vector3(1, 10, 1)
 texture_albedo = ExtResource("12_8lbuc")
 
 [node name="snowman_decal" type="Decal" parent="."]
-transform = Transform3D(0.255403, 0, -0.966539, 0, 1, 0, 0.966539, 0, 0.255403, 0, 0, 0)
+transform = Transform3D(-0.721721, 0, -0.691503, 0, 1, 0, 0.691503, 0, -0.721721, 0, 0, 0)
 visible = false
 size = Vector3(34, 1, 34)
 texture_albedo = ExtResource("7_g2fgb")
@@ -171,3 +180,41 @@ marker_snowman = NodePath("../../head/camera/svc/sv/sub_camera/marker_snowman")
 held_snowman = NodePath("../../head/camera/svc/sv/sub_camera/marker_snowman/held_snowman")
 snowman_range = NodePath("../../head/camera/svc/sv/sub_camera/marker_snowman/snowman_range")
 snowman_decal = NodePath("../../snowman_decal")
+
+[node name="player_UI" type="CanvasLayer" parent="."]
+
+[node name="interact_tex" type="NinePatchRect" parent="player_UI"]
+visible = false
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -185.5
+offset_top = 260.0
+offset_right = 185.5
+offset_bottom = 351.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("18_5fe2f")
+patch_margin_left = 30
+patch_margin_top = 30
+patch_margin_right = 30
+patch_margin_bottom = 30
+
+[node name="interact_label" type="Label" parent="player_UI/interact_tex"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -119.5
+offset_top = -29.0
+offset_right = 119.5
+offset_bottom = 29.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "[f] to upgrade"
+label_settings = SubResource("LabelSettings_lw1fa")
+horizontal_alignment = 1
