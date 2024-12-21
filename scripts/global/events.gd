@@ -2,7 +2,7 @@ extends Node
 
 signal shop_closed
 
-signal player_interacted
+signal player_interacted(snowman_data: SnowmanData)
 
 signal player_connected(player: Player)
 signal player_sprinted

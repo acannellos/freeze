@@ -1,4 +1,4 @@
-[gd_scene load_steps=22 format=3 uid="uid://bqavd4syqg2we"]
+[gd_scene load_steps=36 format=3 uid="uid://bqavd4syqg2we"]
 
 [ext_resource type="Script" path="res://scripts/game/game.gd" id="1_relpd"]
 [ext_resource type="PackedScene" uid="uid://bybw7drsvtyx4" path="res://scenes/UI/crosshair.tscn" id="2_g0yy1"]
@@ -9,19 +9,78 @@
 [ext_resource type="Script" path="res://scripts/game/shop.gd" id="7_1mn07"]
 [ext_resource type="Texture2D" uid="uid://d0galojgm544k" path="res://assets/textures/panel_fill.png" id="7_i0q8x"]
 [ext_resource type="Material" uid="uid://bwhuqoc8d3j1h" path="res://data/sky/skybox.tres" id="8_u703u"]
-[ext_resource type="PackedScene" uid="uid://pwwftivp4cj0" path="res://scenes/UI/upgrade.tscn" id="9_4fman"]
+[ext_resource type="PackedScene" uid="uid://b7n308j5smrhh" path="res://scenes/UI/upgrade_vbox.tscn" id="9_af4uo"]
 [ext_resource type="PackedScene" uid="uid://didwt8a5jvh1r" path="res://scenes/world/lookout.tscn" id="9_km5vx"]
 [ext_resource type="Script" path="res://scripts/enemy/enemy_spawner.gd" id="9_xjp4j"]
 [ext_resource type="Texture2D" uid="uid://o4g1hyrpl44f" path="res://assets/textures/linebreak.png" id="10_h265v"]
 [ext_resource type="PackedScene" uid="uid://cdcxq6f8ve3as" path="res://scenes/player/player.tscn" id="10_icrej"]
+[ext_resource type="Texture2D" uid="uid://cr2qktwb7a5la" path="res://assets/textures/snowball.png" id="10_ucmf3"]
 [ext_resource type="PackedScene" uid="uid://cewpuv53gdb0" path="res://scenes/enemy/enemy.tscn" id="10_wm5b8"]
 [ext_resource type="Resource" uid="uid://d248ohhtwyht6" path="res://data/waves/wave_0.tres" id="11_05fhd"]
+[ext_resource type="Script" path="res://scripts/snowman/upgrade_data.gd" id="11_evekw"]
+[ext_resource type="Texture2D" uid="uid://frxsf7vx6gpn" path="res://assets/textures/hat.png" id="12_jxxwv"]
+[ext_resource type="Texture2D" uid="uid://cm75mld7th622" path="res://assets/textures/branches_brown.png" id="12_mdcaf"]
+[ext_resource type="Texture2D" uid="uid://b5mgv1f3vrud" path="res://assets/textures/buttons.png" id="13_mijtc"]
+[ext_resource type="Texture2D" uid="uid://d1ta1twmjr6xl" path="res://assets/textures/carrot.png" id="16_i5cot"]
+[ext_resource type="Texture2D" uid="uid://b568jvpleopvb" path="res://assets/textures/scarf.png" id="17_5obpn"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_mulav"]
 font_size = 60
 
 [sub_resource type="LabelSettings" id="LabelSettings_pupgq"]
 font_size = 42
+font_color = Color(0, 0, 0, 1)
+
+[sub_resource type="Resource" id="Resource_c8kcb"]
+script = ExtResource("11_evekw")
+input_key_text = "[1]"
+title_text = "head"
+image = ExtResource("10_ucmf3")
+price_text = "100"
+description_text = "it's necessary."
+
+[sub_resource type="Resource" id="Resource_nusfy"]
+script = ExtResource("11_evekw")
+input_key_text = "[2]"
+title_text = "arms"
+image = ExtResource("12_mdcaf")
+price_text = "100"
+description_text = "increase shot speed"
+
+[sub_resource type="Resource" id="Resource_7olah"]
+script = ExtResource("11_evekw")
+input_key_text = "[3]"
+title_text = "eyes"
+image = ExtResource("13_mijtc")
+price_text = "100"
+description_text = "reduce cooldown"
+
+[sub_resource type="Resource" id="Resource_pn72a"]
+script = ExtResource("11_evekw")
+input_key_text = "[4]"
+title_text = "hat"
+image = ExtResource("12_jxxwv")
+price_text = "100"
+description_text = "increase range"
+
+[sub_resource type="Resource" id="Resource_40wu0"]
+script = ExtResource("11_evekw")
+input_key_text = "[5]"
+title_text = "nose"
+image = ExtResource("16_i5cot")
+price_text = "100"
+description_text = "pierce attack"
+
+[sub_resource type="Resource" id="Resource_7p21h"]
+script = ExtResource("11_evekw")
+input_key_text = "[6]"
+title_text = "scarf"
+image = ExtResource("17_5obpn")
+price_text = "100"
+description_text = "area of effect"
+
+[sub_resource type="LabelSettings" id="LabelSettings_a0fbm"]
+font_size = 18
 font_color = Color(0, 0, 0, 1)
 
 [sub_resource type="Sky" id="Sky_pkkbk"]
@@ -126,17 +185,10 @@ script = ExtResource("7_1mn07")
 
 [node name="NinePatchRect" type="NinePatchRect" parent="UI/shop"]
 layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -400.0
-offset_top = -150.0
-offset_right = 400.0
-offset_bottom = 190.0
-grow_horizontal = 2
-grow_vertical = 2
+offset_left = 42.0
+offset_top = 42.0
+offset_right = 842.0
+offset_bottom = 442.0
 texture = ExtResource("7_i0q8x")
 patch_margin_left = 30
 patch_margin_top = 30
@@ -156,7 +208,7 @@ grow_horizontal = 2
 text = "upgrades"
 label_settings = SubResource("LabelSettings_pupgq")
 
-[node name="HBoxContainer" type="HBoxContainer" parent="UI/shop/NinePatchRect"]
+[node name="hbox" type="HBoxContainer" parent="UI/shop/NinePatchRect"]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -164,35 +216,58 @@ anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
 offset_left = -334.5
-offset_top = -30.0
+offset_top = -100.0
 offset_right = 334.5
-offset_bottom = 70.0
+offset_bottom = 169.0
 grow_horizontal = 2
 grow_vertical = 2
 theme_override_constants/separation = 10
 
-[node name="upgrade" parent="UI/shop/NinePatchRect/HBoxContainer" instance=ExtResource("9_4fman")]
+[node name="head" parent="UI/shop/NinePatchRect/hbox" instance=ExtResource("9_af4uo")]
 layout_mode = 2
+upgrade_data = SubResource("Resource_c8kcb")
+is_active = true
 
-[node name="upgrade2" parent="UI/shop/NinePatchRect/HBoxContainer" instance=ExtResource("9_4fman")]
+[node name="arms" parent="UI/shop/NinePatchRect/hbox" instance=ExtResource("9_af4uo")]
 layout_mode = 2
+upgrade_data = SubResource("Resource_nusfy")
 
-[node name="upgrade3" parent="UI/shop/NinePatchRect/HBoxContainer" instance=ExtResource("9_4fman")]
+[node name="eyes" parent="UI/shop/NinePatchRect/hbox" instance=ExtResource("9_af4uo")]
 layout_mode = 2
+upgrade_data = SubResource("Resource_7olah")
 
-[node name="upgrade4" parent="UI/shop/NinePatchRect/HBoxContainer" instance=ExtResource("9_4fman")]
+[node name="hat" parent="UI/shop/NinePatchRect/hbox" instance=ExtResource("9_af4uo")]
 layout_mode = 2
+upgrade_data = SubResource("Resource_pn72a")
 
-[node name="TextureRect" type="TextureRect" parent="UI/shop/NinePatchRect/HBoxContainer"]
+[node name="TextureRect" type="TextureRect" parent="UI/shop/NinePatchRect/hbox"]
 layout_mode = 2
 texture = ExtResource("10_h265v")
-expand_mode = 3
+stretch_mode = 5
 
-[node name="upgrade5" parent="UI/shop/NinePatchRect/HBoxContainer" instance=ExtResource("9_4fman")]
+[node name="nose" parent="UI/shop/NinePatchRect/hbox" instance=ExtResource("9_af4uo")]
 layout_mode = 2
+upgrade_data = SubResource("Resource_40wu0")
 
-[node name="upgrade6" parent="UI/shop/NinePatchRect/HBoxContainer" instance=ExtResource("9_4fman")]
+[node name="scarf" parent="UI/shop/NinePatchRect/hbox" instance=ExtResource("9_af4uo")]
 layout_mode = 2
+upgrade_data = SubResource("Resource_7p21h")
+
+[node name="or" type="Label" parent="UI/shop/NinePatchRect"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = 222.0
+offset_top = -50.0
+offset_right = 252.0
+offset_bottom = -20.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "or"
+label_settings = SubResource("LabelSettings_a0fbm")
 
 [node name="world" type="Node3D" parent="."]
 

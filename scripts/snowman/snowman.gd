@@ -1,6 +1,8 @@
 class_name Snowman
 extends StaticBody3D
 
+@export var snowman_data: SnowmanData = SnowmanData.new()
+
 @onready var area_col: CollisionShape3D = $area/col
 @onready var timer: Timer = $attack/Timer
 

@@ -1,7 +1,8 @@
-[gd_scene load_steps=5 format=3 uid="uid://pwwftivp4cj0"]
+[gd_scene load_steps=8 format=3 uid="uid://pwwftivp4cj0"]
 
 [ext_resource type="Texture2D" uid="uid://d0galojgm544k" path="res://assets/textures/panel_fill.png" id="1_utvvk"]
 [ext_resource type="Texture2D" uid="uid://cr2qktwb7a5la" path="res://assets/textures/snowball.png" id="2_xo4d6"]
+[ext_resource type="Texture2D" uid="uid://cjd1q2ncrcpxk" path="res://assets/textures/snowflake_black.png" id="3_66vod"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_4cyo0"]
 font_size = 24
@@ -11,9 +12,17 @@ font_color = Color(0, 0, 0, 1)
 font_size = 24
 font_color = Color(0, 0, 0, 1)
 
+[sub_resource type="LabelSettings" id="LabelSettings_fd7n4"]
+font_size = 24
+font_color = Color(0, 0, 0, 1)
+
+[sub_resource type="LabelSettings" id="LabelSettings_hqysa"]
+font_size = 18
+font_color = Color(0, 0, 0, 1)
+
 [node name="upgrade" type="TextureRect"]
-offset_right = 40.0
-offset_bottom = 40.0
+offset_right = 100.0
+offset_bottom = 100.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 texture = ExtResource("1_utvvk")
@@ -62,7 +71,49 @@ theme_override_constants/margin_top = 10
 theme_override_constants/margin_right = 10
 theme_override_constants/margin_bottom = 10
 
-[node name="TextureRect" type="TextureRect" parent="MarginContainer"]
+[node name="tex" type="TextureRect" parent="MarginContainer"]
 layout_mode = 2
 texture = ExtResource("2_xo4d6")
 expand_mode = 1
+
+[node name="HBoxContainer" type="HBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -50.0
+offset_top = 85.0
+offset_right = 50.0
+offset_bottom = 119.0
+grow_horizontal = 2
+grow_vertical = 0
+
+[node name="TextureRect" type="TextureRect" parent="HBoxContainer"]
+layout_mode = 2
+texture = ExtResource("3_66vod")
+expand_mode = 2
+
+[node name="Label" type="Label" parent="HBoxContainer"]
+layout_mode = 2
+text = "100"
+label_settings = SubResource("LabelSettings_fd7n4")
+
+[node name="description" type="Label" parent="."]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -30.0
+offset_top = 30.0
+offset_right = 30.0
+offset_bottom = 105.0
+grow_horizontal = 2
+grow_vertical = 0
+text = "this is a description"
+label_settings = SubResource("LabelSettings_hqysa")
+horizontal_alignment = 1
+autowrap_mode = 2
