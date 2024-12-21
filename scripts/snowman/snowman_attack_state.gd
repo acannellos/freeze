@@ -11,41 +11,14 @@ var enemies: Array = []
 
 enum States {IDLE, ATTACKING}
 
-#func shoot() -> void:
-	#if timer.is_stopped():
-		#snowman.look_at(look_at.global_position)
-		#timer.start()
-		#var attack = Projectile.instantiate() as RayCast3D
-		#add_child(attack)
-		#attack.global_transform = marker.global_transform
-
-#func _ready():
-	#call_deferred("set_state", States.IDLE)
-#
-#func _get_transition():
-	#return States.IDLE
-#
-#func _enter_state(new_state):
-	#
-	#match new_state:
-		#States.IDLE:
-			#pass
-#
-#func _state_logic(delta: float) -> void:
-	#match state:
-		#States.IDLE:
-			#shoot()
-			#pass
-
-
 func shoot() -> void:
 	if timer.is_stopped() and enemies.size() > 0:
 		var target = enemies[0]
 		snowman.look_at(target.global_transform.origin)
-		#timer.paused = false
 		timer.start()
 
 		var attack = Projectile.instantiate() as RayCast3D
+		attack.set_speed(100.0)
 		add_child(attack)
 		attack.global_transform = marker.global_transform
 
@@ -69,8 +42,6 @@ func _enter_state(new_state):
 	match new_state:
 		States.IDLE:
 			pass
-			#timer.stop()
-			#timer.paused = true
 
 		States.ATTACKING:
 			pass

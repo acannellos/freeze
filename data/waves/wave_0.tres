@@ -1,0 +1,7 @@
+[gd_resource type="Resource" script_class="WaveData" load_steps=2 format=3 uid="uid://d248ohhtwyht6"]
+
+[ext_resource type="Script" path="res://scripts/enemy/waves/wave_data.gd" id="1_5wg13"]
+
+[resource]
+script = ExtResource("1_5wg13")
+enemies = Array[int]([0, 0, 0, 0, 0, 0, 0, 0, 0, 0])

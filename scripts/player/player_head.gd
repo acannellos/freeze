@@ -17,6 +17,7 @@ func _ready() -> void:
 func _physics_process(delta: float) -> void:
 	sub_camera.global_transform = camera.global_transform
 	marker.position = lerp(marker.position, og_pos, delta * 5)
+	
 
 func handle_camera_input(event: InputEvent) -> void:
 	if event is InputEventMouseMotion and Input.mouse_mode == Input.MOUSE_MODE_CAPTURED:

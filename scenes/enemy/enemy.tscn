@@ -1,6 +1,7 @@
-[gd_scene load_steps=5 format=3 uid="uid://cewpuv53gdb0"]
+[gd_scene load_steps=6 format=3 uid="uid://cewpuv53gdb0"]
 
 [ext_resource type="Script" path="res://scripts/enemy/enemy.gd" id="1_scaqm"]
+[ext_resource type="Material" uid="uid://1d560dn1rbbn" path="res://assets/mats/red.tres" id="2_uw6mv"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_xwlcu"]
 
@@ -16,9 +17,12 @@ script = ExtResource("1_scaqm")
 
 [node name="col" type="CollisionShape3D" parent="body"]
 shape = SubResource("CapsuleShape3D_xwlcu")
+disabled = true
 
 [node name="mesh" type="MeshInstance3D" parent="."]
+visible = false
 mesh = SubResource("CapsuleMesh_27r4k")
+surface_material_override/0 = ExtResource("2_uw6mv")
 
 [node name="area" type="Area3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1, 0)
@@ -28,3 +32,4 @@ collision_mask = 0
 [node name="col" type="CollisionShape3D" parent="area"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
 shape = SubResource("CapsuleShape3D_di7fc")
+disabled = true

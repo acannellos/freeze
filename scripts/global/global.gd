@@ -1,6 +1,7 @@
 extends Node
 
 var snowflakes: int = 100
+var presents: int = 100
 
 var gravity: float = 20
 

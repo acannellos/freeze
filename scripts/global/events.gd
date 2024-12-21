@@ -1,5 +1,9 @@
 extends Node
 
+signal shop_closed
+
+signal player_interacted
+
 signal player_connected(player: Player)
 signal player_sprinted
 signal player_jumped(jump_cost: float)
