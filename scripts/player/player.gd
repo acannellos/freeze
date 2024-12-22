@@ -50,7 +50,10 @@ func handle_fall(y_val: float) -> void:
 
 func handle_interact_input() -> void:
 	if ray.is_colliding() and Input.is_action_just_pressed("interact"):
-		Events.player_interacted.emit()
+		var col: Snowman = ray.get_collider()
+		Global.selected_snowman = col
+		var collided_data: SnowmanData = col.snowman_data
+		Events.player_interacted.emit(collided_data)
 		is_upgrade_open = true
 		#print("interact")
 
