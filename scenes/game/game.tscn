@@ -1,4 +1,4 @@
-[gd_scene load_steps=36 format=3 uid="uid://bqavd4syqg2we"]
+[gd_scene load_steps=39 format=3 uid="uid://bqavd4syqg2we"]
 
 [ext_resource type="Script" path="res://scripts/game/game.gd" id="1_relpd"]
 [ext_resource type="PackedScene" uid="uid://bybw7drsvtyx4" path="res://scenes/UI/crosshair.tscn" id="2_g0yy1"]
@@ -23,6 +23,7 @@
 [ext_resource type="Texture2D" uid="uid://b5mgv1f3vrud" path="res://assets/textures/buttons.png" id="13_mijtc"]
 [ext_resource type="Texture2D" uid="uid://d1ta1twmjr6xl" path="res://assets/textures/carrot.png" id="16_i5cot"]
 [ext_resource type="Texture2D" uid="uid://b568jvpleopvb" path="res://assets/textures/scarf.png" id="17_5obpn"]
+[ext_resource type="Texture2D" uid="uid://cjd1q2ncrcpxk" path="res://assets/textures/snowflake_black.png" id="18_on6mu"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_mulav"]
 font_size = 60
@@ -82,6 +83,14 @@ description_text = "area of effect"
 [sub_resource type="LabelSettings" id="LabelSettings_a0fbm"]
 font_size = 18
 font_color = Color(0, 0, 0, 1)
+
+[sub_resource type="LabelSettings" id="LabelSettings_eebw5"]
+font_size = 20
+font_color = Color(0.325441, 0.325441, 0.325441, 1)
+
+[sub_resource type="LabelSettings" id="LabelSettings_detl4"]
+font_size = 20
+font_color = Color(0.32549, 0.32549, 0.32549, 1)
 
 [sub_resource type="Sky" id="Sky_pkkbk"]
 sky_material = ExtResource("8_u703u")
@@ -269,6 +278,31 @@ grow_vertical = 2
 text = "or"
 label_settings = SubResource("LabelSettings_a0fbm")
 
+[node name="HBoxContainer" type="HBoxContainer" parent="UI/shop/NinePatchRect"]
+layout_mode = 0
+offset_left = 33.0
+offset_top = 29.0
+offset_right = 253.0
+offset_bottom = 54.0
+
+[node name="sell_label" type="Label" parent="UI/shop/NinePatchRect/HBoxContainer"]
+layout_mode = 2
+text = "[delete] to sell for "
+label_settings = SubResource("LabelSettings_eebw5")
+
+[node name="price" type="HBoxContainer" parent="UI/shop/NinePatchRect/HBoxContainer"]
+layout_mode = 2
+
+[node name="TextureRect" type="TextureRect" parent="UI/shop/NinePatchRect/HBoxContainer/price"]
+layout_mode = 2
+texture = ExtResource("18_on6mu")
+expand_mode = 2
+
+[node name="price_label" type="Label" parent="UI/shop/NinePatchRect/HBoxContainer/price"]
+layout_mode = 2
+text = "100"
+label_settings = SubResource("LabelSettings_detl4")
+
 [node name="world" type="Node3D" parent="."]
 
 [node name="env" type="WorldEnvironment" parent="world"]
@@ -276,6 +310,7 @@ environment = SubResource("Environment_ymi31")
 
 [node name="sun" type="DirectionalLight3D" parent="world"]
 transform = Transform3D(1, 0, 0, 0, 0.401772, 0.91574, 0, -0.91574, 0.401772, 0, 100, 0)
+light_energy = 0.55
 shadow_enabled = true
 
 [node name="lookout" parent="world" instance=ExtResource("9_km5vx")]

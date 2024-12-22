@@ -11,14 +11,18 @@ var enemies: Array = []
 
 enum States {IDLE, ATTACKING}
 
+var current_speed: float = 100.0
+
+
 func shoot() -> void:
 	if timer.is_stopped() and enemies.size() > 0:
 		var target = enemies[0]
+		#var target = enemies[-1]
 		snowman.look_at(target.global_transform.origin)
 		timer.start()
 
 		var attack = Projectile.instantiate() as RayCast3D
-		attack.set_speed(100.0)
+		attack.set_speed(current_speed)
 		add_child(attack)
 		attack.global_transform = marker.global_transform
 

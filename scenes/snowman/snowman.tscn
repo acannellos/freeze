@@ -1,18 +1,28 @@
-[gd_scene load_steps=11 format=3 uid="uid://tquajgfegas0"]
+[gd_scene load_steps=23 format=3 uid="uid://tquajgfegas0"]
 
 [ext_resource type="Script" path="res://scripts/snowman/snowman.gd" id="1_b4esk"]
-[ext_resource type="SphereMesh" uid="uid://d17aarxmbx475" path="res://assets/mesh/snowman_mesh.tres" id="2_gohwx"]
+[ext_resource type="Material" uid="uid://1d560dn1rbbn" path="res://assets/mats/red.tres" id="2_2sy0k"]
+[ext_resource type="Material" uid="uid://xtq842xhst0x" path="res://assets/mats/white.tres" id="2_wdhla"]
 [ext_resource type="Texture2D" uid="uid://c3dpyaqnfd3i4" path="res://assets/textures/dotted_outline.png" id="3_g222q"]
 [ext_resource type="Script" path="res://scripts/snowman/decal_rotate.gd" id="4_2sajk"]
 [ext_resource type="Script" path="res://scripts/snowman/snowman_attack_state.gd" id="4_beudx"]
 [ext_resource type="PackedScene" uid="uid://cls6jvodtjqc1" path="res://scenes/enemy/projectile.tscn" id="5_mqu4r"]
+[ext_resource type="Material" uid="uid://dx31upsfrcakc" path="res://assets/mats/black.tres" id="7_eji40"]
+[ext_resource type="Material" uid="uid://dumkqtgreaxjq" path="res://assets/mats/orange.tres" id="8_6ol0q"]
+[ext_resource type="Material" uid="uid://cj1hf6k7xjagr" path="res://assets/mats/brown.tres" id="9_4vdi1"]
 
 [sub_resource type="CylinderShape3D" id="CylinderShape3D_hmtio"]
 height = 1.0
 
+[sub_resource type="SphereMesh" id="SphereMesh_o5omn"]
+radial_segments = 12
+rings = 6
+
 [sub_resource type="SphereMesh" id="SphereMesh_qwwsj"]
-radius = 15.0
-height = 30.0
+radius = 16.0
+height = 32.0
+radial_segments = 24
+rings = 12
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_q2od5"]
 transparency = 1
@@ -21,7 +31,44 @@ shading_mode = 0
 albedo_color = Color(0.5, 0.941667, 1, 0.227451)
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_b2lq0"]
-radius = 15.0
+radius = 16.0
+
+[sub_resource type="SphereMesh" id="SphereMesh_pqxac"]
+radius = 0.4
+height = 0.8
+radial_segments = 10
+rings = 4
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_hl48w"]
+top_radius = 0.02
+bottom_radius = 0.04
+height = 1.0
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_xspx0"]
+top_radius = 0.05
+bottom_radius = 0.05
+height = 0.05
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_m63k1"]
+height = 0.1
+radial_segments = 12
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_fpab0"]
+top_radius = 0.3
+bottom_radius = 0.3
+height = 0.4
+radial_segments = 12
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_uyaw0"]
+top_radius = 0.06
+bottom_radius = 0.01
+height = 0.3
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_gx2o8"]
+top_radius = 0.45
+bottom_radius = 0.46
+height = 0.4
+radial_segments = 12
 
 [node name="snowman" type="StaticBody3D"]
 collision_layer = 5
@@ -31,14 +78,15 @@ script = ExtResource("1_b4esk")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
 shape = SubResource("CylinderShape3D_hmtio")
 
-[node name="mesh" type="MeshInstance3D" parent="."]
+[node name="base" type="MeshInstance3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
-mesh = ExtResource("2_gohwx")
+mesh = SubResource("SphereMesh_o5omn")
+surface_material_override/0 = ExtResource("2_wdhla")
 
 [node name="Decal" type="Decal" parent="." groups=["ranges"]]
 transform = Transform3D(-0.830334, 0, 0.557267, 0, 1, 0, -0.557267, 0, -0.830334, 0, 0, 0)
 top_level = true
-size = Vector3(34, 1, 34)
+size = Vector3(36, 1, 36)
 texture_albedo = ExtResource("3_g222q")
 script = ExtResource("4_2sajk")
 
@@ -48,7 +96,7 @@ mesh = SubResource("SphereMesh_qwwsj")
 surface_material_override/0 = SubResource("StandardMaterial3D_q2od5")
 
 [node name="marker" type="Marker3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.2, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.2, -1)
 
 [node name="area" type="Area3D" parent="."]
 collision_layer = 0
@@ -70,3 +118,65 @@ one_shot = true
 [node name="RemoteTransform3D" type="RemoteTransform3D" parent="."]
 remote_path = NodePath("../Decal")
 update_rotation = false
+
+[node name="head" type="MeshInstance3D" parent="."]
+transform = Transform3D(0.876307, -0.232087, 0.422164, 0, 0.876307, 0.481754, -0.481754, -0.422164, 0.767913, 0, 1.22, 0)
+visible = false
+mesh = SubResource("SphereMesh_pqxac")
+surface_material_override/0 = ExtResource("2_wdhla")
+
+[node name="arms" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.587262, 0.816569, 0)
+visible = false
+
+[node name="arm1" type="MeshInstance3D" parent="arms"]
+transform = Transform3D(0.328817, 0.944394, 0, -0.944394, 0.328817, 0, 0, 0, 1, -0.181552, -0.0651724, 0)
+mesh = SubResource("CylinderMesh_hl48w")
+surface_material_override/0 = ExtResource("9_4vdi1")
+
+[node name="arm2" type="MeshInstance3D" parent="arms"]
+transform = Transform3D(-0.326914, -0.938928, -0.107427, -0.944394, 0.328817, -2.25837e-09, 0.0353237, 0.101453, -0.994213, -1.1405, -0.0651724, 0)
+mesh = SubResource("CylinderMesh_hl48w")
+surface_material_override/0 = ExtResource("9_4vdi1")
+
+[node name="eyes" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0690768, 1.39974, -0.339166)
+visible = false
+
+[node name="eye" type="MeshInstance3D" parent="eyes"]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0.171188, 0, 0)
+mesh = SubResource("CylinderMesh_xspx0")
+surface_material_override/0 = ExtResource("7_eji40")
+
+[node name="eye2" type="MeshInstance3D" parent="eyes"]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, -0.0379771, 0, 0)
+mesh = SubResource("CylinderMesh_xspx0")
+surface_material_override/0 = ExtResource("7_eji40")
+
+[node name="hat" type="Node3D" parent="."]
+transform = Transform3D(0.999916, -0.0118297, -0.00529932, 0.0108641, 0.987824, -0.155198, 0.00707072, 0.155127, 0.987869, -0.0124035, 1.49432, 0.038718)
+visible = false
+
+[node name="rim" type="MeshInstance3D" parent="hat"]
+mesh = SubResource("CylinderMesh_m63k1")
+surface_material_override/0 = ExtResource("7_eji40")
+
+[node name="top" type="MeshInstance3D" parent="hat"]
+transform = Transform3D(1, -1.16415e-10, 4.65661e-10, 5.82077e-10, 1, 0, -4.65661e-10, 1.49012e-08, 1, -0.000203001, 0.246962, 0.00289994)
+mesh = SubResource("CylinderMesh_fpab0")
+surface_material_override/0 = ExtResource("7_eji40")
+
+[node name="nose" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, -0.0689033, -0.997623, 0, 0.997623, -0.0689033, 0, 1.29829, -0.498078)
+visible = false
+mesh = SubResource("CylinderMesh_uyaw0")
+surface_material_override/0 = ExtResource("8_6ol0q")
+
+[node name="scarf" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.28493, 0, 0)
+visible = false
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="scarf"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.27459, 1.10418, 0)
+mesh = SubResource("CylinderMesh_gx2o8")
+surface_material_override/0 = ExtResource("2_2sy0k")

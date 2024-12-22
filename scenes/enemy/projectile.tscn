@@ -1,6 +1,7 @@
-[gd_scene load_steps=3 format=3 uid="uid://cls6jvodtjqc1"]
+[gd_scene load_steps=4 format=3 uid="uid://cls6jvodtjqc1"]
 
 [ext_resource type="Script" path="res://scripts/enemy/projectile.gd" id="1_1yyil"]
+[ext_resource type="Material" uid="uid://xtq842xhst0x" path="res://assets/mats/white.tres" id="2_55ixq"]
 
 [sub_resource type="CylinderMesh" id="CylinderMesh_leabf"]
 top_radius = 0.0
@@ -16,6 +17,7 @@ script = ExtResource("1_1yyil")
 [node name="mesh" type="MeshInstance3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1.31134e-07, 1, 0, -1, 1.31134e-07, 0, 0, 0)
 mesh = SubResource("CylinderMesh_leabf")
+surface_material_override/0 = ExtResource("2_55ixq")
 
 [node name="Timer" type="Timer" parent="."]
 wait_time = 30.0

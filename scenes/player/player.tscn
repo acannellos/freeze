@@ -1,4 +1,4 @@
-[gd_scene load_steps=28 format=3 uid="uid://cdcxq6f8ve3as"]
+[gd_scene load_steps=29 format=3 uid="uid://cdcxq6f8ve3as"]
 
 [ext_resource type="Script" path="res://scripts/player/player.gd" id="1_7u2fc"]
 [ext_resource type="Script" path="res://scripts/player/components/player_movement_data.gd" id="2_w60pe"]
@@ -10,6 +10,7 @@
 [ext_resource type="SphereMesh" uid="uid://d17aarxmbx475" path="res://assets/mesh/snowman_mesh.tres" id="6_ogbiw"]
 [ext_resource type="Texture2D" uid="uid://c3dpyaqnfd3i4" path="res://assets/textures/dotted_outline.png" id="7_g2fgb"]
 [ext_resource type="Script" path="res://scripts/player/components/player_move_component.gd" id="7_u0m56"]
+[ext_resource type="Material" uid="uid://xtq842xhst0x" path="res://assets/mats/white.tres" id="7_wrtn2"]
 [ext_resource type="AudioStream" uid="uid://dnv4vvjleyx6u" path="res://assets/sounds/walking.ogg" id="8_xpv4m"]
 [ext_resource type="Script" path="res://scripts/snowman/decal_rotate.gd" id="10_f3rbj"]
 [ext_resource type="Shader" path="res://shaders/outline.gdshader" id="11_37rgj"]
@@ -33,8 +34,10 @@ jump_cost = 1
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_d4r1y"]
 
 [sub_resource type="SphereMesh" id="SphereMesh_soqcj"]
-radius = 15.0
-height = 30.0
+radius = 16.0
+height = 32.0
+radial_segments = 24
+rings = 12
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_nnl0s"]
 transparency = 1
@@ -122,6 +125,7 @@ visible = false
 layers = 2
 mesh = ExtResource("6_ogbiw")
 skeleton = NodePath("../../marker")
+surface_material_override/0 = ExtResource("7_wrtn2")
 
 [node name="snowman_range" type="MeshInstance3D" parent="head/camera/svc/sv/sub_camera/marker_snowman"]
 visible = false
@@ -147,7 +151,7 @@ texture_albedo = ExtResource("12_8lbuc")
 [node name="snowman_decal" type="Decal" parent="."]
 transform = Transform3D(-0.721721, 0, -0.691503, 0, 1, 0, 0.691503, 0, -0.721721, 0, 0, 0)
 visible = false
-size = Vector3(34, 1, 34)
+size = Vector3(36, 1, 36)
 texture_albedo = ExtResource("7_g2fgb")
 script = ExtResource("10_f3rbj")
 

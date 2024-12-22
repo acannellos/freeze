@@ -3,6 +3,8 @@ extends Node
 var snowflakes: int = 100
 var presents: int = 100
 
+var selected_snowman: Snowman
+
 var gravity: float = 20
 
 var player: Player
