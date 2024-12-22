@@ -18,19 +18,21 @@ height = 1.0
 radial_segments = 12
 rings = 6
 
-[sub_resource type="SphereMesh" id="SphereMesh_qwwsj"]
+[sub_resource type="SphereMesh" id="SphereMesh_27nk0"]
+resource_local_to_scene = true
 radius = 16.0
 height = 32.0
 radial_segments = 24
 rings = 12
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_q2od5"]
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_gcvie"]
 transparency = 1
 cull_mode = 2
 shading_mode = 0
 albedo_color = Color(0.5, 0.941667, 1, 0.227451)
 
-[sub_resource type="SphereShape3D" id="SphereShape3D_b2lq0"]
+[sub_resource type="SphereShape3D" id="SphereShape3D_p5hqy"]
+resource_local_to_scene = true
 radius = 16.0
 
 [sub_resource type="SphereMesh" id="SphereMesh_pqxac"]
@@ -92,8 +94,8 @@ script = ExtResource("4_2sajk")
 
 [node name="range" type="MeshInstance3D" parent="." groups=["ranges"]]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
-mesh = SubResource("SphereMesh_qwwsj")
-surface_material_override/0 = SubResource("StandardMaterial3D_q2od5")
+mesh = SubResource("SphereMesh_27nk0")
+surface_material_override/0 = SubResource("StandardMaterial3D_gcvie")
 
 [node name="marker" type="Marker3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.2, -1)
@@ -103,7 +105,7 @@ collision_layer = 0
 collision_mask = 2
 
 [node name="col" type="CollisionShape3D" parent="area"]
-shape = SubResource("SphereShape3D_b2lq0")
+shape = SubResource("SphereShape3D_p5hqy")
 
 [node name="attack" type="Node" parent="." node_paths=PackedStringArray("area", "marker")]
 unique_name_in_owner = true

@@ -14,8 +14,8 @@ var temp_snowman_data: SnowmanData = SnowmanData.new()
 
 func _unhandled_input(event: InputEvent):
 	if Input.is_action_just_pressed("upgrade_1") and visible:
-		# TODO check snowflakes
-		if not temp_snowman_data.has_head:
+		if not temp_snowman_data.has_head and Global.snowflakes >= head_price:
+			Global.snowflakes -= head_price
 			temp_snowman_data.has_head = true
 			update_hbox()
 			Global.selected_snowman.show_head()
@@ -24,7 +24,8 @@ func _unhandled_input(event: InputEvent):
 		
 	if Input.is_action_just_pressed("upgrade_2") and visible and temp_snowman_data.has_head:
 		# TODO check snowflakes
-		if not temp_snowman_data.has_arms:
+		if not temp_snowman_data.has_arms and Global.snowflakes >= arms_price:
+			Global.snowflakes -= arms_price
 			temp_snowman_data.has_arms = true
 			update_hbox()
 			Global.selected_snowman.show_arms()
@@ -33,7 +34,8 @@ func _unhandled_input(event: InputEvent):
 		
 	if Input.is_action_just_pressed("upgrade_3") and visible and temp_snowman_data.has_head:
 		# TODO check snowflakes
-		if not temp_snowman_data.has_eyes:
+		if not temp_snowman_data.has_eyes and Global.snowflakes >= eyes_price:
+			Global.snowflakes -= eyes_price
 			temp_snowman_data.has_eyes = true
 			update_hbox()
 			Global.selected_snowman.show_eyes()
@@ -42,7 +44,8 @@ func _unhandled_input(event: InputEvent):
 		
 	if Input.is_action_just_pressed("upgrade_4") and visible and temp_snowman_data.has_head:
 		# TODO check snowflakes
-		if not temp_snowman_data.has_hat:
+		if not temp_snowman_data.has_hat and Global.snowflakes >= hat_price:
+			Global.snowflakes -= hat_price
 			temp_snowman_data.has_hat = true
 			update_hbox()
 			Global.selected_snowman.show_hat()
@@ -51,7 +54,8 @@ func _unhandled_input(event: InputEvent):
 		
 	if Input.is_action_just_pressed("upgrade_5") and visible and temp_snowman_data.has_head:
 		# TODO check snowflakes
-		if not temp_snowman_data.has_nose and not temp_snowman_data.has_scarf:
+		if not temp_snowman_data.has_nose and not temp_snowman_data.has_scarf and Global.snowflakes >= nose_price:
+			Global.snowflakes -= nose_price
 			temp_snowman_data.has_nose = true
 			update_hbox()
 			Global.selected_snowman.show_nose()
@@ -60,7 +64,8 @@ func _unhandled_input(event: InputEvent):
 		
 	if Input.is_action_just_pressed("upgrade_6") and visible and temp_snowman_data.has_head:
 		# TODO check snowflakes
-		if not temp_snowman_data.has_nose and not temp_snowman_data.has_scarf:
+		if not temp_snowman_data.has_nose and not temp_snowman_data.has_scarf and Global.snowflakes >= scarf_price:
+			Global.snowflakes -= scarf_price
 			temp_snowman_data.has_scarf = true
 			update_hbox()
 			Global.selected_snowman.show_scarf()
@@ -71,6 +76,11 @@ func _unhandled_input(event: InputEvent):
 		var sell_price = Global.selected_snowman.current_price * sell_multi
 		Global.selected_snowman.cleanup()
 		Global.snowflakes += sell_price
+	
+	if Input.is_action_just_pressed("toggle") and visible:
+		Global.selected_snowman.adjust_aim()
+		update_toggle_label()
+
 
 func _ready() -> void:
 	Events.connect("player_interacted", _on_player_interacted)
@@ -82,12 +92,20 @@ func _on_player_interacted(snowman_data: SnowmanData) -> void:
 	temp_snowman_data = snowman_data
 	update_hbox()
 	update_price_label()
+	update_toggle_label()
 
-@onready var price_label: Label = $NinePatchRect/HBoxContainer/price/price_label
+@onready var price_label: Label = $NinePatchRect/sellbox/price/price_label
+@onready var current_toggle: Label = $NinePatchRect/togglebox/current_toggle
 
 func update_price_label() -> void:
 	var sell_price = Global.selected_snowman.current_price * sell_multi
 	price_label.text = str(sell_price)
+
+func update_toggle_label() -> void:
+	if Global.selected_snowman.attack.is_aiming_at_back:
+		current_toggle.text = "back"
+	else:
+		current_toggle.text = "front"
 
 func update_hbox() -> void:
 	for child in hbox.get_children() as Array[UpgradeVbox]:

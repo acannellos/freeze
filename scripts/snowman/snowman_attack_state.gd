@@ -13,11 +13,17 @@ enum States {IDLE, ATTACKING}
 
 var current_speed: float = 100.0
 
+var is_aiming_at_back: bool = false
 
 func shoot() -> void:
 	if timer.is_stopped() and enemies.size() > 0:
-		var target = enemies[0]
-		#var target = enemies[-1]
+		
+		var target
+		if is_aiming_at_back:
+			target = enemies[-1]
+		else:
+			target = enemies[0]
+		
 		snowman.look_at(target.global_transform.origin)
 		timer.start()
 

@@ -2,7 +2,6 @@ class_name Snowman
 extends StaticBody3D
 
 @export var snowman_data: SnowmanData = SnowmanData.new()
-@export var base_price: float = 20.0
 var current_price: float = 0
 
 @onready var area_col: CollisionShape3D = $area/col
@@ -18,7 +17,7 @@ var current_price: float = 0
 @onready var attack: SnowmanAttackState = %attack
 
 func _ready() -> void:
-	current_price = base_price
+	current_price = Global.base_snowman_price
 
 func update_price(amt: float) -> void:
 	current_price += amt
@@ -57,6 +56,9 @@ func show_nose() -> void:
 func show_scarf() -> void:
 	scarf.show()
 	# TODO ability
+
+func adjust_aim() -> void:
+	attack.is_aiming_at_back = !attack.is_aiming_at_back
 
 func cleanup() -> void:
 	queue_free()

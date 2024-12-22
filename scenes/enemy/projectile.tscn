@@ -20,7 +20,7 @@ mesh = SubResource("CylinderMesh_leabf")
 surface_material_override/0 = ExtResource("2_55ixq")
 
 [node name="Timer" type="Timer" parent="."]
-wait_time = 30.0
+wait_time = 4.0
 one_shot = true
 autostart = true
 

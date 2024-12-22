@@ -1,7 +1,9 @@
 extends Node
 
-var snowflakes: int = 100
-var presents: int = 100
+var snowflakes: int = 6500
+var presents: int = 40
+
+var base_snowman_price: float = 250.0
 
 var selected_snowman: Snowman
 

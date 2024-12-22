@@ -12,7 +12,7 @@ func _input(event: InputEvent) -> void:
 func spawn_wave(wave_data: WaveData) -> void:
 	for enemy in wave_data.enemies:
 		spawn_enemy()
-		await get_tree().create_timer(1.0).timeout
+		await get_tree().create_timer(0.8).timeout
 
 func spawn_enemy() -> void:
 	var enemy: Enemy = enemy_scene.instantiate()

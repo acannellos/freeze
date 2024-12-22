@@ -1,4 +1,4 @@
-[gd_scene load_steps=29 format=3 uid="uid://cdcxq6f8ve3as"]
+[gd_scene load_steps=30 format=3 uid="uid://cdcxq6f8ve3as"]
 
 [ext_resource type="Script" path="res://scripts/player/player.gd" id="1_7u2fc"]
 [ext_resource type="Script" path="res://scripts/player/components/player_movement_data.gd" id="2_w60pe"]
@@ -50,6 +50,7 @@ flip_faces = true
 size = Vector2(2, 2)
 
 [sub_resource type="FastNoiseLite" id="FastNoiseLite_lwuk3"]
+frequency = 0.005
 
 [sub_resource type="NoiseTexture2D" id="NoiseTexture2D_4ajd8"]
 noise = SubResource("FastNoiseLite_lwuk3")
@@ -68,12 +69,16 @@ shader_parameter/min_distance = 2.0
 shader_parameter/grazing_fresnel_power = 5.0
 shader_parameter/grazing_angle_mask_power = 1.0
 shader_parameter/grazing_angle_modulation_factor = 50.0
-shader_parameter/noise_amount = 0.0
+shader_parameter/noise_amount = 0.01
 shader_parameter/NOISE_TEXTURE = SubResource("NoiseTexture2D_4ajd8")
 
 [sub_resource type="LabelSettings" id="LabelSettings_lw1fa"]
 font_size = 42
 font_color = Color(0, 0, 0, 1)
+
+[sub_resource type="LabelSettings" id="LabelSettings_yknl8"]
+font_size = 42
+font_color = Color(1, 0, 0, 1)
 
 [node name="player" type="CharacterBody3D"]
 collision_layer = 3
@@ -222,3 +227,16 @@ grow_vertical = 2
 text = "[f] to upgrade"
 label_settings = SubResource("LabelSettings_lw1fa")
 horizontal_alignment = 1
+
+[node name="cost_label" type="Label" parent="player_UI"]
+visible = false
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_left = 280.0
+offset_top = -280.0
+offset_right = 353.0
+offset_bottom = -222.0
+grow_vertical = 0
+text = "-250"
+label_settings = SubResource("LabelSettings_yknl8")

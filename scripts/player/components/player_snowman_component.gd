@@ -6,7 +6,8 @@ extends PlayerComponent
 @export var held_snowman: MeshInstance3D
 @export var snowman_range: MeshInstance3D
 @export var snowman_decal: Decal
-@export var snowman_cost: int = 20
+
+@onready var cost_label: Label = $"../../player_UI/cost_label"
 
 var is_range_visible = true
 
@@ -18,7 +19,7 @@ func handle_snowman_input():
 		_toggle_show()
 	
 	if Input.is_action_just_released("secondary") and held_snowman.visible:
-		if owner.is_on_floor() and Global.snowflakes >= snowman_cost:
+		if round(player.global_position.y) == 0 and Global.snowflakes >= Global.base_snowman_price:
 			_create_snowman()
 		else:
 			_toggle_hide()
@@ -29,7 +30,7 @@ func handle_snowman_input():
 			is_range_visible = range.visible
 
 func _create_snowman() -> void:
-	Global.snowflakes -= snowman_cost
+	Global.snowflakes -= Global.base_snowman_price
 	_toggle_hide()
 	var snowman: Snowman = snowman_scene.instantiate() as Snowman
 	get_tree().root.add_child(snowman)
@@ -40,13 +41,18 @@ func _create_snowman() -> void:
 		snowman.show_range()
 	else:
 		snowman.hide_range()
+	
+	snowman.look_at(player.global_transform.origin)
 
 func _toggle_show() -> void:
 	held_snowman.show()
 	snowman_range.show()
 	snowman_decal.show()
+	cost_label.show()
 
 func _toggle_hide() -> void:
 	held_snowman.hide()
 	snowman_range.hide()
 	snowman_decal.hide()
+	cost_label.hide()
+	
