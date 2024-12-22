@@ -125,14 +125,14 @@ one_shot = true
 [node name="marker_snowman" type="Marker3D" parent="head/camera/svc/sv/sub_camera"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.5, -1.5)
 
-[node name="held_snowman" type="MeshInstance3D" parent="head/camera/svc/sv/sub_camera/marker_snowman"]
+[node name="held_snowman" type="MeshInstance3D" parent="head/camera/svc/sv/sub_camera/marker_snowman" groups=["panels"]]
 visible = false
 layers = 2
 mesh = ExtResource("6_ogbiw")
 skeleton = NodePath("../../marker")
 surface_material_override/0 = ExtResource("7_wrtn2")
 
-[node name="snowman_range" type="MeshInstance3D" parent="head/camera/svc/sv/sub_camera/marker_snowman"]
+[node name="snowman_range" type="MeshInstance3D" parent="head/camera/svc/sv/sub_camera/marker_snowman" groups=["panels"]]
 visible = false
 mesh = SubResource("SphereMesh_soqcj")
 skeleton = NodePath("../../marker")
@@ -153,7 +153,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -4.5, 0)
 size = Vector3(1, 10, 1)
 texture_albedo = ExtResource("12_8lbuc")
 
-[node name="snowman_decal" type="Decal" parent="."]
+[node name="snowman_decal" type="Decal" parent="." groups=["panels"]]
 transform = Transform3D(-0.721721, 0, -0.691503, 0, 1, 0, 0.691503, 0, -0.721721, 0, 0, 0)
 visible = false
 size = Vector3(36, 1, 36)
@@ -175,6 +175,7 @@ script = ExtResource("11_clh3t")
 
 [node name="footsteps" type="AudioStreamPlayer" parent="components/movement"]
 stream = ExtResource("8_xpv4m")
+volume_db = -12.0
 autoplay = true
 
 [node name="stats" type="Node" parent="components"]
@@ -228,7 +229,7 @@ text = "[f] to upgrade"
 label_settings = SubResource("LabelSettings_lw1fa")
 horizontal_alignment = 1
 
-[node name="cost_label" type="Label" parent="player_UI"]
+[node name="cost_label" type="Label" parent="player_UI" groups=["panels"]]
 visible = false
 anchors_preset = 2
 anchor_top = 1.0
