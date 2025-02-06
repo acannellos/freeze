@@ -15,9 +15,11 @@ func _ready():
 
 		available.append(p)
 
-		p.volume_db = -10
+		p.volume_db = -16
 		p.finished.connect(_on_stream_finished.bind(p))
 		p.bus = bus
+	
+	play("music/wanderer_tale.wav")
 
 func _on_stream_finished(stream):
 	available.append(stream)
@@ -30,6 +32,8 @@ func _process(_delta):
 	if not queue.is_empty() and not available.is_empty():
 		available[0].stream = load(queue.pop_front())
 		available[0].play()
-		available[0].pitch_scale = randf_range(0.9, 1.1)
+		
+		available[0].pitch_scale = 1.0
+		#available[0].pitch_scale = randf_range(0.9, 1.1)
 
 		available.pop_front()

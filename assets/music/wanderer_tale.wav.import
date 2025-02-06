@@ -3,12 +3,12 @@
 importer="wav"
 type="AudioStreamWAV"
 uid="uid://bj5fi77jqo5w7"
-path="res://.godot/imported/Wanderer's Tale.wav-57de73865b6e6b27d572be2dd3fd2231.sample"
+path="res://.godot/imported/wanderer_tale.wav-93ccfbaca942cd734f2f814cc30f14e5.sample"
 
 [deps]
 
-source_file="res://assets/music/Wanderer's Tale.wav"
-dest_files=["res://.godot/imported/Wanderer's Tale.wav-57de73865b6e6b27d572be2dd3fd2231.sample"]
+source_file="res://assets/music/wanderer_tale.wav"
+dest_files=["res://.godot/imported/wanderer_tale.wav-93ccfbaca942cd734f2f814cc30f14e5.sample"]
 
 [params]
 
